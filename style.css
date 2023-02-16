@@ -261,6 +261,21 @@ svg {
   padding: .5rem .75rem .5625rem;
 }
 
+/* INPUT */
+
+::placeholder { color: var(--ui-color-typography-note); }
+
+.ui-component-input {
+  background-color: var(--ui-color-form-input);
+  border: .0625rem solid var(--ui-color-form-input);
+  border-radius: var(--ui-radius-input);
+}
+
+.ui-component-input-medium {
+  height: 2.5rem;
+  padding: .625rem 1rem .75rem;
+}
+
 /*--------------------------------------------------------------
 |
 | 6.3 LIST
