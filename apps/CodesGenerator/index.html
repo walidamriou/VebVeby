@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Codes Generator - Generator of QRcode, BarCode, etc.">
+    <meta name="author" content="Walid Amriou">
+    <meta name="referrer" content="unsafe-url">
+    <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="icon" href="assets/img/icon/favicon.ico" sizes="any"><!-- 32×32 -->
+    <link rel="apple-touch-icon" href="assets/img/icon/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="manifest" href="assets/img/icon/site.webmanifest">
+
+    <link rel="preload" as="style" href="style.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<script src="assets/js/qrcode/qrcode.js"></script>
+<script src="assets/js/qrcode/qrcode.min.js"></script>
+
+    <!-- TITLE -->
+    <title>CodesGenerator</title>
+
+    <style>
+
+
+      </style>
+  </head>
+
+  <body>
+    <header role="banner" class="ui-section-header" style="background-color: #004AAD;">
+      <div class="ui-layout-container">
+        <div class="ui-section-header__layout ui-layout-flex">
+          <!-- LOGO -->
+          <a href="#" role="link" aria-label="#" style="color:#FFFFFF;font-weight: bold;">
+            VebVeby
+          </a>
+          
+          <!-- MENU -->
+          <a href="/" role="link" aria-label="#" class="ui-component-button ui-component-button-small ui-component-button-primary"
+          >
+            Contact
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+
+      <section class="ui-section-hero" style="background-color: #004AAD;
+
+background-size: 20px 20px;
+background-position: 0 0,10px 10px;
+padding-top:1px;
+      ">
+
+
+        <div class="ui-layout-container">
+
+          <div class="ui-layout-column-6 ui-layout-column-center" style="font-size:large;color: #FFFFFF;font-weight: bold;">
+            <center>
+            CodesGenerator
+            <br>
+            <p class="ui-text-intro" style="font-size:large;color: #FFFFFF;">Generator of QRcode, BarCode, etc.</p>
+            <br>
+            <input type="text" class="ui-component-input ui-component-input-medium" placeholder="data here ..." name="input_text" id="input_text" autocomplete="off">
+            <br>
+              <button type="submit" class="button ui-component-button ui-component-button-normal ui-component-button-primary" style="margin: 10px;background-color: #FFFFFF;color:#1F1F1F;">
+                Generate
+                <i class="fa-solid fa-rotate"></i>
+              </button>
+            <br>
+            <div class="qr-code" style></div>
+            <br>
+            <div class=" ui-layout-flex" style="white-space: nowrap; ">
+            </div>
+
+            <p class="ui-text-intro" style="font-size:large;color: #FFFFFF;">Now Support generate QRcode only! </p>
+
+          </center>
+
+          </div>
+        </div>
+      </section>
+
+
+
+    </main>
+    <footer role="contentinfo" class="ui-section-footer" style="background-color: #004AAD;">
+      <div class="ui-layout-container">
+        <div class="ui-section-footer__layout ui-layout-flex">
+          <p class="ui-section-footer--copyright ui-text-note" style="color: #F5F5F5;"><small>&copy; 2023 CodesGenerator by Walid Amriou</small></p>
+
+          <nav role="navigation" class="ui-section-footer--nav ui-section-footer--social ui-layout-flex">
+
+          </nav>
+
+        </div>
+      </div>
+    </footer>
+  </body>
+
+  <script>
+    let btn = document.querySelector(".button");
+    let qr_code_element = document.querySelector(".qr-code");
+    
+    btn.addEventListener("click", () => {
+      let user_input = document.querySelector("#input_text");
+      if (user_input.value != "") {
+        if (qr_code_element.childElementCount == 0) {
+          generate(user_input);
+        } else {
+          qr_code_element.innerHTML = "";
+          generate(user_input);
+        }
+      } else {
+        console.log("not valid input");
+        qr_code_element.style = "display: none";
+      }
+    });
+    
+    function generate(user_input) {
+      qr_code_element.style = "";
+    
+      var qrcode = new QRCode(qr_code_element, {
+        text: `${user_input.value}`,
+        width: 200, //128
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    
+      let download = document.createElement("button");
+      download.className = "button ui-component-button ui-component-button-normal ui-component-button-primary";
+      download.style = "text-align: center;margin: 10px;background-color: #FFFFFF;color:#1F1F1F";
+      qr_code_element.appendChild(download);
+    
+      let download_link = document.createElement("a");
+      download_link.setAttribute("download", "qr_code.png");
+      download_link.innerHTML = `Download`;
+    
+      download.appendChild(download_link);
+    
+      let qr_code_img = document.querySelector(".qr-code img");
+      let qr_code_canvas = document.querySelector("canvas");
+    
+      if (qr_code_img.getAttribute("src") == null) {
+        setTimeout(() => {
+          download_link.setAttribute("href", `${qr_code_canvas.toDataURL()}`);
+        }, 300);
+      } else {
+        setTimeout(() => {
+          download_link.setAttribute("href", `${qr_code_img.getAttribute("src")}`);
+        }, 300);
+      }
+    }
+    
+    generate({
+      value: "Test text"
+    });
+    </script>
+
+</html>
